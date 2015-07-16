@@ -1,2 +1,3 @@
 # bitcoinmap.github.io
-Bitcoin Map Moscow
+Bitcoin Map of Russia
+Биткойн Карта России
