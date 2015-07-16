@@ -24,12 +24,13 @@
 
 function initialize() {
   var myLatlng = new google.maps.LatLng(55.897827, 37.388039);
-  var myLatlng2 = new google.maps.LatLng(55.761405, 37.619380);
+  var myLatlng2 = new google.maps.LatLng2(55.761405, 37.619380);
   var mapOptions = {
     zoom: 10
   };
 
   var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+  var map = new google.maps.Map2(document.getElementById('map-canvas'), mapOptions);
 
   var contentString = '<div id="content">'+
       '<div id="siteNotice">'+
