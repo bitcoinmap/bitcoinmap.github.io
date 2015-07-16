@@ -24,9 +24,9 @@
 
 function initialize() {
   var myLatlng = new google.maps.LatLng(55.897827, 37.388039);
+  var myLatlng2 = new google.maps.LatLng(55.897827, 37.388039);55.761405, 37.619380
   var mapOptions = {
-    zoom: 10,
-    center: myLatlng
+    zoom: 10
   };
 
   var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
@@ -36,7 +36,7 @@ function initialize() {
       '</div>'+
       '<div id="bodyContent">'+
       '<p><b>Bitcoin 24</b> - Покупка и продажа биткойнов за наличные.<br>'+
-      'RUB: от 100,000 рублей<br>USD: от $5,000<br>EUR: от €5,000 - 100,000<br><b>Проверенный трейдер (Verified trader)</b><br><a href="skype:Lax0033?add">Skype</a><br><a href="https://telegram.me/bitcoin24">Telegram</a></p>'+
+      'RUB: от 100,000 рублей<br>USD: от $5,000<br>EUR: от €5,000<br><b>Проверенный трейдер (Verified trader)</b><br><a href="skype:Lax0033?add">Skype</a><br><a href="https://telegram.me/bitcoin24">Telegram</a></p>'+
       '<p>Подробнее: <a href="http://buybtc.ru">'+
       'BuyBTC.RU</a> '+
       '(внешний сайт).</p>'+
@@ -47,8 +47,8 @@ function initialize() {
       '<div id="siteNotice">'+
       '</div>'+
       '<div id="bodyContent">'+
-      '<p><b>Bitcoin 24</b> - Покупка и продажа биткойнов за наличные.<br>'+
-      'RUB: от 100,000 рублей<br>USD: от $5,000<br>EUR: от €5,000 - 100,000<br><b>Проверенный трейдер (Verified trader)</b><br><a href="skype:Lax0033?add">Skype</a><br><a href="https://telegram.me/bitcoin24">Telegram</a></p>'+
+      '<p><b>ЦУМ</b> - Покупка и продажа биткойнов за наличные.<br>'+
+      'RUB: от 100,000 рублей<br>USD: от $5,000<br>EUR: от €5,000<br><b>Проверенный трейдер (Verified trader)</b><br><a href="skype:Lax0033?add">Skype</a>, <a href="https://telegram.me/bitcoin24">Telegram</a></p>'+
       '<p>Подробнее: <a href="http://buybtc.ru">'+
       'BuyBTC.RU</a> '+
       '(внешний сайт).</p>'+
@@ -61,9 +61,9 @@ function initialize() {
   });
 
   var marker = new google.maps.Marker({
-      position: myLatlng,
+      position: myLatlng, myLatlng2
       map: map,
-      title: '<b>Bitcoin 24</b> - Покупка и продажа биткойнов за наличные.'
+      title: '<b>Bitcoin Карта России</b> - где купить и продать биткойны за наличные - карта России.'
   });
   google.maps.event.addListener(marker, 'click', function() {
     infowindow.open(map,marker);
