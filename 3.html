@@ -22,63 +22,75 @@
   <div id="map_wrapper">
     <div id="map_canvas" class="mapping"></div>
   </div>
-  //*******
-    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true"></script>
-    <script>
+  <script>jQuery(function($) {
+    // Asynchronously Load the map API 
+    var script = document.createElement('script');
+    script.src = "http://maps.googleapis.com/maps/api/js?sensor=false&callback=initialize";
+    document.body.appendChild(script);
+});
 
 function initialize() {
-  var myLatlng = new google.maps.LatLng(55.897827, 37.388039);
-  var myLatlng2 = new google.maps.LatLng2(55.761405, 37.619380);
-  var mapOptions = {
-    zoom: 10
-  };
+    var map;
+    var bounds = new google.maps.LatLngBounds();
+    var mapOptions = {
+        mapTypeId: 'roadmap'
+    };
+                    
+    // Display a map on the page
+    map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
+    map.setTilt(45);
+        
+    // Multiple Markers
+    var markers = [
+        ['London Eye, London', 51.503454,-0.119562],
+        ['Palace of Westminster, London', 51.499633,-0.124755]
+    ];
+                        
+    // Info Window Content
+    var infoWindowContent = [
+        ['<div class="info_content">' +
+        '<h3>London Eye</h3>' +
+        '<p>The London Eye is a giant Ferris wheel situated on the banks of the River Thames. The entire structure is 135 metres (443 ft) tall and the wheel has a diameter of 120 metres (394 ft).</p>' +        '</div>'],
+        ['<div class="info_content">' +
+        '<h3>Palace of Westminster</h3>' +
+        '<p>The Palace of Westminster is the meeting place of the House of Commons and the House of Lords, the two houses of the Parliament of the United Kingdom. Commonly known as the Houses of Parliament after its tenants.</p>' +
+        '</div>']
+    ];
+        
+    // Display multiple markers on a map
+    var infoWindow = new google.maps.InfoWindow(), marker, i;
+    
+    // Loop through our array of markers & place each one on the map  
+    for( i = 0; i < markers.length; i++ ) {
+        var position = new google.maps.LatLng(markers[i][1], markers[i][2]);
+        bounds.extend(position);
+        marker = new google.maps.Marker({
+            position: position,
+            map: map,
+            title: markers[i][0]
+        });
+        
+        // Allow each marker to have an info window    
+        google.maps.event.addListener(marker, 'click', (function(marker, i) {
+            return function() {
+                infoWindow.setContent(infoWindowContent[i][0]);
+                infoWindow.open(map, marker);
+            }
+        })(marker, i));
 
-  var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
-  var map = new google.maps.Map2(document.getElementById('map-canvas'), mapOptions);
+        // Automatically center the map fitting all markers on the screen
+        map.fitBounds(bounds);
+    }
 
-  var contentString = '<div id="content">'+
-      '<div id="siteNotice">'+
-      '</div>'+
-      '<div id="bodyContent">'+
-      '<p><b>Bitcoin 24</b> - Покупка и продажа биткойнов за наличные.<br>'+
-      'RUB: от 100,000 рублей<br>USD: от $5,000<br>EUR: от €5,000<br><b>Проверенный трейдер (Verified trader)</b><br><a href="skype:Lax0033?add">Skype</a><br><a href="https://telegram.me/bitcoin24">Telegram</a></p>'+
-      '<p>Подробнее: <a href="http://buybtc.ru">'+
-      'BuyBTC.RU</a> '+
-      '(внешний сайт).</p>'+
-      '</div>'+
-      '</div>';
-      
-  var contentString2 = '<div id="content">'+
-      '<div id="siteNotice">'+
-      '</div>'+
-      '<div id="bodyContent">'+
-      '<p><b>ЦУМ</b> - Покупка и продажа биткойнов за наличные.<br>'+
-      'RUB: от 100,000 рублей<br>USD: от $5,000<br>EUR: от €5,000<br><b>Проверенный трейдер (Verified trader)</b><br><a href="skype:Lax0033?add">Skype</a>, <a href="https://telegram.me/bitcoin24">Telegram</a></p>'+
-      '<p>Подробнее: <a href="http://buybtc.ru">'+
-      'BuyBTC.RU</a> '+
-      '(внешний сайт).</p>'+
-      '</div>'+
-      '</div>';
-
-  var infowindow = new google.maps.InfoWindow({
-      content: contentString
-      content: contentString2
-  });
-
-  var marker = new google.maps.Marker({
-      position: myLatlng, myLatlng2
-      map: map,
-      title: '<b>Bitcoin Карта России</b> - где купить и продать биткойны за наличные - карта России.'
-  });
-  google.maps.event.addListener(marker, 'click', function() {
-    infowindow.open(map,marker);
-  });
+    // Override our map zoom level once our fitBounds function runs (Make sure it only runs once)
+    var boundsListener = google.maps.event.addListener((map), 'bounds_changed', function(event) {
+        this.setZoom(14);
+        google.maps.event.removeListener(boundsListener);
+    });
+    
 }
-
-google.maps.event.addDomListener(window, 'load', initialize);
-
-    </script>
-  </head>
+</script>
+</head>
   <body>
     <div id="map-canvas"></div>
   </body>
